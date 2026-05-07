@@ -5,25 +5,6 @@ from .models import Proyecto
 
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'titulo',
-        'estudiante',
-        'estado',
-        'calificacion',
-        'creado'
-    )
-
-    list_filter = (
-        'estado',
-        'creado'
-    )
-
-    search_fields = (
-        'titulo',
-        'estudiante__username'
-    )
-
     list_display = ('titulo', 'estudiante', 'estado', 'fecha_envio', 'calificacion')
     list_filter = ('estado', 'fecha_envio')
     search_fields = ('titulo', 'estudiante__username')
@@ -31,27 +12,16 @@ class ProyectoAdmin(admin.ModelAdmin):
     actions = ['aprobar_proyectos', 'marcar_en_revision']
     
     fieldsets = (
-
         ('Información del Proyecto', {
-            'fields': (
-                'titulo',
-                'descripcion',
-                'estudiante'
-            )
+            'fields': ('titulo', 'descripcion', 'estudiante', 'documento')
         }),
-
         ('Estado y Evaluación', {
-            'fields': (
-                'estado',
-                'calificacion'
-            )
+            'fields': ('estado', 'calificacion', 'fecha_revision')
         }),
-
-    )
         ('Fechas', {
             'fields': ('fecha_envio',)
         }),
-
+    )
     
     def aprobar_proyectos(self, request, queryset):
         """Acción para aprobar múltiples proyectos"""
@@ -66,6 +36,6 @@ class ProyectoAdmin(admin.ModelAdmin):
     
     def marcar_en_revision(self, request, queryset):
         """Acción para marcar proyectos en revisión"""
-        updated = queryset.update(estado='revisión', fecha_revision=timezone.now())
+        updated = queryset.update(estado='revision', fecha_revision=timezone.now())
         self.message_user(request, f'{updated} proyecto(s) marcado(s) en revisión')
     marcar_en_revision.short_description = 'Marcar como en revisión'
