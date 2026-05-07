@@ -3,6 +3,76 @@
 {% block title %}Lista de Proyectos{% endblock %}
 
 {% block content %}
-<!-- TODO: Implementar lista de proyectos con filtros -->
-<!-- TODO: Agregar botones de exportar CSV y PDF -->
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+    <h2 class="mb-2 mb-sm-0">Lista de Proyectos</h2>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="form-row">
+            <div class="form-group col-md-4">
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado" class="form-control">
+                    <option value="">Todos</option>
+                    {% for value, label in estados %}
+                        <option value="{{ value }}" {% if estado_seleccionado == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="estudiante">Estudiante</label>
+                <select id="estudiante" name="estudiante" class="form-control">
+                    <option value="">Todos</option>
+                    {% for u in estudiantes %}
+                        <option value="{{ u.id }}" {% if estudiante_seleccionado == u.id|stringformat:"s" %}selected{% endif %}>
+                            {{ u.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+            </div>
+        </form>
+
+        {% if estado_seleccionado or estudiante_seleccionado %}
+            <div class="mt-2">
+                <span class="badge badge-light border">Filtros activos</span>
+                {% if estado_seleccionado %}
+                    <span class="badge badge-info">Estado: {{ estado_seleccionado }}</span>
+                {% endif %}
+                {% if estudiante_seleccionado %}
+                    <span class="badge badge-info">Estudiante ID: {{ estudiante_seleccionado }}</span>
+                {% endif %}
+                <a class="btn btn-link btn-sm" href="{% url 'proyectos:proyecto_list' %}">Limpiar</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if proyectos %}
+    <div class="list-group">
+        {% for proyecto in proyectos %}
+            <a href="{% url 'proyectos:proyecto_detail' proyecto.pk %}" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="font-weight-bold">{{ proyecto.titulo }}</div>
+                        <div class="text-muted small">
+                            Estudiante: {{ proyecto.estudiante.username }}
+                        </div>
+                    </div>
+                    <span class="badge badge-secondary">{{ proyecto.get_estado_display|default:proyecto.estado }}</span>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info" role="alert">
+        No hay proyectos para los filtros seleccionados.
+    </div>
+{% endif %}
 {% endblock %}
