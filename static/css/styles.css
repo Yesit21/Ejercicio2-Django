@@ -1,11 +1,65 @@
-/* TODO: Agregar estilos personalizados */
+/* Estilos personalizados para el Sistema de Proyectos Académicos */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Estilos para el navbar */
+main {
+    flex: 1;
+}
 
-/* Estilos para formularios */
+/* Navbar */
+.navbar-brand {
+    font-size: 1.5rem;
+}
 
-/* Estilos para tablas */
+/* Cards */
+.card {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Botones */
+.btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 5px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Jumbotron */
+.jumbotron {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+.jumbotron .badge {
+    font-size: 1rem;
+}
+
+/* Lista de funcionalidades */
+.list-group-item {
+    border-left: 4px solid #007bff;
+}

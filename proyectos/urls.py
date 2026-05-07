@@ -1,5 +1,4 @@
 from django.urls import path
-
 from .views import (
     ProyectoListView,
     ProyectoDetailView,
@@ -39,6 +38,4 @@ urlpatterns = [
         ProyectoDeleteView.as_view(),
         name='proyecto_delete'
     ),
-
-    path('usuarios/', include('usuarios.urls')),
 ]

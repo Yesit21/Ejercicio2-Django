@@ -42,3 +42,4 @@ class Proyecto(models.Model):
             'proyecto_detail',
             kwargs={'pk': self.pk}
         )
+   

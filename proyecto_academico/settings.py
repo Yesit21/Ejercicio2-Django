@@ -136,7 +136,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Login/Logout URLs
 LOGIN_URL = 'usuarios:login'
-LOGIN_REDIRECT_URL = 'proyectos:lista'
+LOGIN_REDIRECT_URL = 'proyectos:inicio'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 # Email Configuration (TODO: Configurar con credenciales reales)
