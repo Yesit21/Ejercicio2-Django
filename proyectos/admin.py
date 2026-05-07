@@ -51,7 +51,7 @@ class ProyectoAdmin(admin.ModelAdmin):
         ('Fechas', {
             'fields': ('fecha_envio',)
         }),
-    )
+
     
     def aprobar_proyectos(self, request, queryset):
         """Acción para aprobar múltiples proyectos"""
