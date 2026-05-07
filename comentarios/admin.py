@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Comentario
 
-# TODO: Registrar modelo Comentario en el admin
+admin.site.register(Comentario)
