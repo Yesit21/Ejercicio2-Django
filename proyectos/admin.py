@@ -2,8 +2,28 @@ from django.contrib import admin
 from django.utils import timezone
 from .models import Proyecto
 
+
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'titulo',
+        'estudiante',
+        'estado',
+        'calificacion',
+        'creado'
+    )
+
+    list_filter = (
+        'estado',
+        'creado'
+    )
+
+    search_fields = (
+        'titulo',
+        'estudiante__username'
+    )
+
     list_display = ('titulo', 'estudiante', 'estado', 'fecha_envio', 'calificacion')
     list_filter = ('estado', 'fecha_envio')
     search_fields = ('titulo', 'estudiante__username')
@@ -11,12 +31,23 @@ class ProyectoAdmin(admin.ModelAdmin):
     actions = ['aprobar_proyectos', 'marcar_en_revision']
     
     fieldsets = (
+
         ('Información del Proyecto', {
-            'fields': ('titulo', 'descripcion', 'estudiante', 'documento')
+            'fields': (
+                'titulo',
+                'descripcion',
+                'estudiante'
+            )
         }),
+
         ('Estado y Evaluación', {
-            'fields': ('estado', 'calificacion', 'fecha_revision')
+            'fields': (
+                'estado',
+                'calificacion'
+            )
         }),
+
+    )
         ('Fechas', {
             'fields': ('fecha_envio',)
         }),

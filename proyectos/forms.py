@@ -1,7 +1,16 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit
+from .models import Proyecto
 
-# TODO: Implementar formularios con crispy_forms
-# - ProyectoForm (para estudiantes)
-# - ProyectoRevisionForm (para docentes)
+
+class ProyectoForm(forms.ModelForm):
+
+    class Meta:
+        model = Proyecto
+        fields = ['titulo', 'descripcion']
+
+
+class ProyectoUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Proyecto
+        fields = ['titulo', 'descripcion']
