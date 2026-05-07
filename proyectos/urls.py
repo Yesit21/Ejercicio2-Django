@@ -1,14 +1,44 @@
 from django.urls import path
 
-app_name = 'proyectos'
+from .views import (
+    ProyectoListView,
+    ProyectoDetailView,
+    ProyectoCreateView,
+    ProyectoUpdateView,
+    ProyectoDeleteView
+)
 
 urlpatterns = [
-    # TODO: Definir URLs para:
-    # - Lista de proyectos
-    # - Crear proyecto
-    # - Editar proyecto
-    # - Eliminar proyecto
-    # - Detalle de proyecto
-    # - Exportar CSV
-    # - Exportar PDF
+
+    path(
+        '',
+        ProyectoListView.as_view(),
+        name='proyecto_list'
+    ),
+
+    path(
+        'crear/',
+        ProyectoCreateView.as_view(),
+        name='proyecto_create'
+    ),
+
+    path(
+        '<int:pk>/',
+        ProyectoDetailView.as_view(),
+        name='proyecto_detail'
+    ),
+
+    path(
+        '<int:pk>/editar/',
+        ProyectoUpdateView.as_view(),
+        name='proyecto_update'
+    ),
+
+    path(
+        '<int:pk>/eliminar/',
+        ProyectoDeleteView.as_view(),
+        name='proyecto_delete'
+    ),
+
+    path('usuarios/', include('usuarios.urls')),
 ]
