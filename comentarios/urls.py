@@ -1,9 +1,9 @@
 from django.urls import path
 
+from . import views
+
 app_name = 'comentarios'
 
 urlpatterns = [
-    # TODO: Definir URLs para:
-    # - Crear comentario
-    # - Listar comentarios de un proyecto
+    path('proyecto/<int:proyecto_id>/comentar/', views.crear_comentario, name='crear_comentario'),
 ]

@@ -3,7 +3,55 @@
 {% block title %}Detalle del Proyecto{% endblock %}
 
 {% block content %}
-<!-- TODO: Mostrar detalles del proyecto -->
-<!-- TODO: Mostrar comentarios asociados -->
-<!-- TODO: Formulario para agregar comentario (si no está aprobado) -->
+<div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+    <div>
+        <h2 class="mb-1">{{ object.titulo }}</h2>
+        <div class="text-muted">Estado: {{ object.get_estado_display|default:object.estado }}</div>
+    </div>
+    <div class="mt-2 mt-sm-0">
+        <a class="btn btn-primary" href="{% url 'comentarios:crear_comentario' object.pk %}">
+            Agregar comentario
+        </a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title mb-2">Descripción</h5>
+        <p class="card-text mb-0">{{ object.descripcion }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-light">
+        <h4 class="mb-0">Comentarios</h4>
+    </div>
+    <div class="card-body">
+        {% with comentarios=object.comentarios.all %}
+            {% if comentarios %}
+                <div class="list-group">
+                    {% for comentario in comentarios reversed %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="font-weight-bold">
+                                    {{ comentario.usuario.username|default:comentario.usuario }}
+                                </div>
+                                <small class="text-muted">
+                                    {{ comentario.fecha_creacion|date:"d/m/Y H:i" }}
+                                </small>
+                            </div>
+                            <div class="mt-2">
+                                {{ comentario.texto|linebreaksbr }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info mb-0" role="alert">
+                    Aún no hay comentarios para este proyecto.
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}
