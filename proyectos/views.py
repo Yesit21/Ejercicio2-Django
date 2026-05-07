@@ -29,9 +29,11 @@ from .permisos import (
 @login_required
 def inicio(request):
     """Vista de inicio con estadísticas para docentes"""
-    context = {}
+    context = {
+        'es_docente': request.user.groups.filter(name='Docente').exists()
+    }
     
-    if request.user.groups.filter(name='Docente').exists():
+    if context['es_docente']:
         context['total_proyectos'] = Proyecto.objects.count()
         context['proyectos_revision'] = Proyecto.objects.filter(estado='revision').count()
         context['proyectos_aprobados'] = Proyecto.objects.filter(estado='aprobado').count()
