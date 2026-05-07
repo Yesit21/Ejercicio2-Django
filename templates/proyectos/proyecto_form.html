@@ -1,8 +1,28 @@
 {% extends 'base/base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Formulario de Proyecto{% endblock %}
+{% block title %}{% if object %}Editar{% else %}Crear{% endif %} Proyecto{% endblock %}
 
 {% block content %}
-<!-- TODO: Implementar formulario de proyecto con crispy_forms -->
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{% if object %}Editar{% else %}Crear{% endif %} Proyecto</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a href="{% url 'proyectos:proyecto_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

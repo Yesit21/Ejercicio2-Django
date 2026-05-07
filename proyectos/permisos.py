@@ -21,10 +21,9 @@ class SoloEstudiantesMixin:
     def dispatch(self, request, *args, **kwargs):
 
         if not request.user.groups.filter(
-            name='Estudiantes'
+            name='Estudiante'
         ).exists():
 
             raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
-    
