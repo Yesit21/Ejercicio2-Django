@@ -14,12 +14,42 @@
             <p>Rol: <span class="badge badge-primary">{{ user.groups.first.name }}</span></p>
         {% endif %}
         
+        {% if user.groups.filter(name='Docente').exists %}
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-info">
+                        <div class="card-body text-center">
+                            <h3>{{ total_proyectos }}</h3>
+                            <p>Total Proyectos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body text-center">
+                            <h3>{{ proyectos_revision }}</h3>
+                            <p>En Revisión</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success">
+                        <div class="card-body text-center">
+                            <h3>{{ proyectos_aprobados }}</h3>
+                            <p>Aprobados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
         <div class="mt-4">
             <h4>Funcionalidades disponibles:</h4>
             <ul class="list-group mt-3">
                 <li class="list-group-item">✅ Sistema de autenticación configurado</li>
                 <li class="list-group-item">✅ Modelo de Proyecto creado</li>
                 <li class="list-group-item">✅ Panel de administración disponible</li>
+                <li class="list-group-item">✅ Validaciones y permisos implementados</li>
                 <li class="list-group-item">⏳ CRUD de proyectos (próximamente)</li>
                 <li class="list-group-item">⏳ Sistema de comentarios (próximamente)</li>
                 <li class="list-group-item">⏳ Exportación de reportes (próximamente)</li>

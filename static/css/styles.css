@@ -15,12 +15,23 @@ main {
 /* Navbar */
 .navbar-brand {
     font-size: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
 }
 
 /* Cards */
 .card {
     border-radius: 10px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .card-header {
@@ -31,11 +42,22 @@ main {
 .btn {
     border-radius: 5px;
     padding: 10px 20px;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Formularios */
 .form-control {
     border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
 }
 
 /* Alertas */
@@ -62,4 +84,10 @@ footer {
 /* Lista de funcionalidades */
 .list-group-item {
     border-left: 4px solid #007bff;
+    transition: all 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #f0f0f0;
+    transform: translateX(5px);
 }
