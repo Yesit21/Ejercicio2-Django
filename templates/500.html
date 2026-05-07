@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Error del servidor{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-1">500</h1>
+    <h2>Error del servidor</h2>
+    <p class="lead">Lo sentimos, algo salió mal. Estamos trabajando para solucionarlo.</p>
+    <a href="{% url 'proyectos:inicio' %}" class="btn btn-primary mt-3">Volver al inicio</a>
+</div>
+{% endblock %}

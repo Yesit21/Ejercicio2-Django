@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib.auth.decorators import login_required
+from .models import Proyecto
 
-# TODO: Implementar vistas basadas en clases para CRUD de proyectos
-# - ProyectoListView (con filtros)
-# - ProyectoCreateView
-# - ProyectoUpdateView
-# - ProyectoDeleteView
-# - ProyectoDetailView
-# - Exportar a CSV
-# - Exportar a PDF
+@login_required
+def inicio(request):
+    """Vista de inicio con estadísticas para docentes"""
+    context = {}
+    
+    if request.user.groups.filter(name='Docente').exists():
+        context['total_proyectos'] = Proyecto.objects.count()
+        context['proyectos_revision'] = Proyecto.objects.filter(estado='revisión').count()
+        context['proyectos_aprobados'] = Proyecto.objects.filter(estado='aprobado').count()
+    
+    return render(request, 'proyectos/inicio.html', context)
