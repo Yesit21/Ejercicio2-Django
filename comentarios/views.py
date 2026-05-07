@@ -7,10 +7,6 @@ from proyectos.models import Proyecto
 from .forms import ComentarioForm
 from .models import Comentario
 
-# TODO: Implementar vistas de comentarios
-# - crear_comentario (con envío de email)
-# - listar_comentarios
-
 
 @login_required
 def crear_comentario(request, proyecto_id):
