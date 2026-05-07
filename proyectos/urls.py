@@ -1,14 +1,9 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
 app_name = 'proyectos'
 
 urlpatterns = [
-    # TODO: Definir URLs para:
-    # - Lista de proyectos
-    # - Crear proyecto
-    # - Editar proyecto
-    # - Eliminar proyecto
-    # - Detalle de proyecto
-    # - Exportar CSV
-    # - Exportar PDF
+    # Vista temporal de inicio
+    path('', TemplateView.as_view(template_name='proyectos/inicio.html'), name='inicio'),
 ]
