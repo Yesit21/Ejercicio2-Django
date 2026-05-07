@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenido al Sistema de Proyectos Académicos</h1>
+    <p class="lead">Gestiona tus proyectos académicos de manera eficiente.</p>
+    <hr class="my-4">
+    
+    {% if user.is_authenticated %}
+        <p>Has iniciado sesión como <strong>{{ user.username }}</strong></p>
+        {% if user.groups.all %}
+            <p>Rol: <span class="badge badge-primary">{{ user.groups.first.name }}</span></p>
+        {% endif %}
+        
+        <div class="mt-4">
+            <h4>Funcionalidades disponibles:</h4>
+            <ul class="list-group mt-3">
+                <li class="list-group-item">✅ Sistema de autenticación configurado</li>
+                <li class="list-group-item">✅ Modelo de Proyecto creado</li>
+                <li class="list-group-item">✅ Panel de administración disponible</li>
+                <li class="list-group-item">⏳ CRUD de proyectos (próximamente)</li>
+                <li class="list-group-item">⏳ Sistema de comentarios (próximamente)</li>
+                <li class="list-group-item">⏳ Exportación de reportes (próximamente)</li>
+            </ul>
+        </div>
+        
+        {% if user.is_staff %}
+            <a class="btn btn-success btn-lg mt-4" href="/admin/" role="button">
+                Ir al Panel de Administración
+            </a>
+        {% endif %}
+    {% else %}
+        <p>Por favor, inicia sesión para acceder al sistema.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'usuarios:login' %}" role="button">
+            Iniciar Sesión
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

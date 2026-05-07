@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # TODO: Descomentar cuando las apps tengan sus URLs configuradas
-    # path('', include('proyectos.urls')),
-    # path('usuarios/', include('usuarios.urls')),
-    # path('comentarios/', include('comentarios.urls')),
+    path('', RedirectView.as_view(url='/usuarios/login/', permanent=False)),
+    path('usuarios/', include('usuarios.urls')),
+    path('proyectos/', include('proyectos.urls')),
 ]
 
 # Servir archivos media en desarrollo

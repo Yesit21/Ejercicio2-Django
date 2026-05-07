@@ -1,5 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# TODO: Implementar modelo Proyecto
-# Campos: titulo, descripcion, estudiante, documento, estado, fecha_envio, fecha_revision, calificacion
+class Proyecto(models.Model):
+    ESTADOS = [
+        ('enviado', 'Enviado'),
+        ('revisión', 'En Revisión'),
+        ('aprobado', 'Aprobado'),
+    ]
+    
+    titulo = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    estudiante = models.ForeignKey(User, related_name='proyectos', on_delete=models.CASCADE)
+    documento = models.FileField(upload_to='proyectos/')
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='enviado')
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+    fecha_revision = models.DateTimeField(null=True, blank=True)
+    calificacion = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Proyecto'
+        verbose_name_plural = 'Proyectos'
+        ordering = ['-fecha_envio']
+    
+    def __str__(self):
+        return f"{self.titulo} - {self.estudiante.username}"
