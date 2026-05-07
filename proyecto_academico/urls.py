@@ -23,9 +23,10 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/proyectos/', permanent=False)),
     path('proyectos/', include('proyectos.urls')),
     path('usuarios/', include('usuarios.urls')),
-
+    path('comentarios/', include('comentarios.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

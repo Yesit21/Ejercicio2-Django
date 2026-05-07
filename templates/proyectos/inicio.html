@@ -3,69 +3,84 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Bienvenido al Sistema de Proyectos Académicos</h1>
-    <p class="lead">Gestiona tus proyectos académicos de manera eficiente.</p>
-    <hr class="my-4">
-    
-    {% if user.is_authenticated %}
-        <p>Has iniciado sesión como <strong>{{ user.username }}</strong></p>
-        {% if user.groups.all %}
-            <p>Rol: <span class="badge badge-primary">{{ user.groups.first.name }}</span></p>
-        {% endif %}
-        
-        {% if user.groups.filter(name='Docente').exists %}
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <div class="card text-white bg-info">
-                        <div class="card-body text-center">
-                            <h3>{{ total_proyectos }}</h3>
-                            <p>Total Proyectos</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-white bg-warning">
-                        <div class="card-body text-center">
-                            <h3>{{ proyectos_revision }}</h3>
-                            <p>En Revisión</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-white bg-success">
-                        <div class="card-body text-center">
-                            <h3>{{ proyectos_aprobados }}</h3>
-                            <p>Aprobados</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        
-        <div class="mt-4">
-            <h4>Funcionalidades disponibles:</h4>
-            <ul class="list-group mt-3">
-                <li class="list-group-item">✅ Sistema de autenticación configurado</li>
-                <li class="list-group-item">✅ Modelo de Proyecto creado</li>
-                <li class="list-group-item">✅ Panel de administración disponible</li>
-                <li class="list-group-item">✅ Validaciones y permisos implementados</li>
-                <li class="list-group-item">⏳ CRUD de proyectos (próximamente)</li>
-                <li class="list-group-item">⏳ Sistema de comentarios (próximamente)</li>
-                <li class="list-group-item">⏳ Exportación de reportes (próximamente)</li>
-            </ul>
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h1 class="h3 mb-0">Bienvenido al Sistema de Proyectos Académicos</h1>
         </div>
-        
-        {% if user.is_staff %}
-            <a class="btn btn-success btn-lg mt-4" href="/admin/" role="button">
-                Ir al Panel de Administración
-            </a>
-        {% endif %}
-    {% else %}
-        <p>Por favor, inicia sesión para acceder al sistema.</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'usuarios:login' %}" role="button">
-            Iniciar Sesión
-        </a>
-    {% endif %}
+        <div class="card-body">
+            <p class="lead text-dark">Gestiona tus proyectos académicos de manera eficiente.</p>
+            <hr>
+            
+            {% if user.is_authenticated %}
+                <div class="alert alert-info">
+                    <strong>Usuario:</strong> {{ user.username }}
+                    {% if user.groups.all %}
+                        | <strong>Rol:</strong> <span class="badge badge-primary">{{ user.groups.first.name }}</span>
+                    {% endif %}
+                </div>
+                
+                {% if es_docente %}
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-info">
+                                <div class="card-body text-center">
+                                    <h2 class="display-4">{{ total_proyectos }}</h2>
+                                    <p class="mb-0">Total Proyectos</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-warning">
+                                <div class="card-body text-center">
+                                    <h2 class="display-4">{{ proyectos_revision }}</h2>
+                                    <p class="mb-0">En Revisión</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-success">
+                                <div class="card-body text-center">
+                                    <h2 class="display-4">{{ proyectos_aprobados }}</h2>
+                                    <p class="mb-0">Aprobados</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <h4 class="text-dark">Funcionalidades disponibles:</h4>
+                    <ul class="list-group mt-3">
+                        <li class="list-group-item"><strong>✅</strong> Sistema de autenticación configurado</li>
+                        <li class="list-group-item"><strong>✅</strong> Modelo de Proyecto creado</li>
+                        <li class="list-group-item"><strong>✅</strong> Panel de administración disponible</li>
+                        <li class="list-group-item"><strong>✅</strong> Validaciones y permisos implementados</li>
+                        <li class="list-group-item"><strong>✅</strong> CRUD de proyectos</li>
+                        <li class="list-group-item"><strong>✅</strong> Sistema de comentarios</li>
+                        <li class="list-group-item"><strong>✅</strong> Exportación de reportes</li>
+                    </ul>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    {% if user.is_staff %}
+                        <a class="btn btn-success btn-lg mr-2" href="/admin/">
+                            <i class="fas fa-cog"></i> Panel de Administración
+                        </a>
+                    {% endif %}
+                    <a class="btn btn-primary btn-lg" href="{% url 'proyectos:proyecto_list' %}">
+                        <i class="fas fa-list"></i> Ver Proyectos
+                    </a>
+                </div>
+            {% else %}
+                <div class="text-center mt-4">
+                    <p class="lead text-dark">Por favor, inicia sesión para acceder al sistema.</p>
+                    <a class="btn btn-primary btn-lg" href="{% url 'usuarios:login' %}">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
